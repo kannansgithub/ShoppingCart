@@ -1,3 +1,4 @@
+using AutoMapper;
 using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using EventBus.RabbitMq.Producer;
+using EventBus.RabbitMq.Constants;
+using EventBus.RabbitMq.Events;
 namespace Basket.API.Controllers
 {
     [Route("api/v1/[controller]")]
@@ -13,9 +17,13 @@ namespace Basket.API.Controllers
     {
         private readonly IBasketRepository _repository;
         private readonly ILogger<BasketController> _logger;
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger)
+        private readonly EventBusRabbitMQProducer _eventBus;
+        private readonly IMapper _mapper;
+        public BasketController(IBasketRepository repository, EventBusRabbitMQProducer eventBus, IMapper mapper, ILogger<BasketController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -68,6 +76,22 @@ namespace Basket.API.Controllers
             // Once basket is checkout, sends an integration event to
             // ordering.api to convert basket to order and proceeds with
             // order creation process
+
+            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            eventMessage.RequestId = Guid.NewGuid();
+            eventMessage.TotalPrice = basket.TotalPrice;
+
+            try
+            {
+                _logger.LogInformation("Basket Sending... to Rabbit");
+                _eventBus.PublishBasketCheckout(EventBusConstants.BasketCheckoutQueue, eventMessage);
+                _logger.LogInformation("Basket Sent to Rabbit");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "ERROR Publishing integration event: {EventId} from {AppName}", eventMessage.RequestId, "Basket");
+                throw;
+            }
             return Accepted();
         }
 

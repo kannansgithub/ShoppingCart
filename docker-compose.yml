@@ -15,6 +15,13 @@ services:
     restart: always
     ports:
       - "6379:6379"
+  rabbit_mq:
+    container_name: rabbit_mq
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   catalog_api:
     container_name: catalog_api
@@ -32,6 +39,7 @@ services:
       - ${HOME}/.aspnet/https:/root/.aspnet/https
     ports:
       - "8001:80"
+
   basket_api:
     container_name: basket_api
     image: ${DOCKER_REGISTRY-}basket_api
@@ -41,8 +49,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:Redis=basket_db:6379"
+      - "EventBus:HostName=rabbit_mq"
+      - "EventBus:UserName=guest"
+      - "EventBus:Password=guest"
     depends_on:
       - basket_db
+      - rabbit_mq
     volumes:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
       - ${HOME}/.aspnet/https:/root/.aspnet/https/

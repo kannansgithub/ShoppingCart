@@ -1,0 +1,12 @@
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.csprojAssemblyReference.cache
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.GeneratedMSBuildEditorConfig.editorconfig
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.AssemblyInfoInputs.cache
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.AssemblyInfo.cs
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.csproj.CoreCompileInputs.cache
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\bin\Debug\net5.0\EventBus.RabbitMq.deps.json
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\bin\Debug\net5.0\EventBus.RabbitMq.dll
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\bin\Debug\net5.0\ref\EventBus.RabbitMq.dll
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\bin\Debug\net5.0\EventBus.RabbitMq.pdb
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.dll
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\ref\EventBus.RabbitMq.dll
+D:\Learning\Microservices\ShoppingCart\src\Common\EventBus.RabbitMq\obj\Debug\net5.0\EventBus.RabbitMq.pdb
